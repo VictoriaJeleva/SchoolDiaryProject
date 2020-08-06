@@ -1,0 +1,35 @@
+﻿@model MySchoolDiaryProject.Web.ViewModels.Subjects.SubjectsInputViewModel
+
+@{
+    ViewData["Title"] = $"Add a subject";
+    var subjects = @Model.SubjectTeachers.Select(x => new SelectListItem(x.SubjectTeacher, x.SubjectTeacher.ToString()));
+}
+
+<body class="pictureBookThemeTeachers">
+    <h1 style="color:ghostwhite;">@ViewData["Title"]</h1>
+
+    <hr />
+    <div class="row">
+        <div class="col-md-4">
+            <form asp-action="AddSubject">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <div class="form-group">
+                    <label asp-for="SubjectTeacher" class="control-label" style="color:ghostwhite;">Subjects And Teachers</label>
+                    <select asp-for="SubjectTeacher" asp-items="subjects" class="form-control"></select>
+                    <span asp-validation-for="SubjectTeacher" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <input type="submit" value="Create" class="btn btn-primary" />
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <div>
+        @*<a asp-action="Index">Back to List</a>*@
+    </div>
+</body>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

@@ -1,0 +1,33 @@
+﻿@model MySchoolDiaryProject.Data.Models.Attendance
+
+@{
+    ViewData["Title"] = "Are you sure you want to delete this?";
+}
+
+<body class="deleteTheme">
+
+    <h1>@ViewData["Title"]</h1>
+
+    <div class="box">
+        <hr />
+        <dl style="color:black;" class="row">
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.DateOfAbsense)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.DateOfAbsense)
+            </dd>
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.Remark)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.Remark)
+            </dd>
+        </dl>
+
+        <form asp-action="Delete">
+            <input type="submit" value="Delete" class="btn btn-danger" /> 
+            @*<a asp-action="Index">Back to List</a>*@
+        </form>
+    </div>
+</body>

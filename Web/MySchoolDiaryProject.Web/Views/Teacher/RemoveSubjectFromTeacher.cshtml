@@ -1,0 +1,31 @@
+﻿@model MySchoolDiaryProject.Web.ViewModels.Subjects.AddSubjectToTeacherViewModel
+
+@{
+    ViewData["Title"] = $"Remove a subject from teacher";
+    var subjects = @Model.Subjects.Select(x => new SelectListItem(x.Name, x.Id.ToString()));
+}
+
+<h1>@ViewData["Title"]</h1>
+
+<body class="deleteTheme">
+    <hr />
+    <div  style="color:black;" class="row box">
+        <div style="color:black;" class="row" class="col-md-4">
+            <form asp-action="RemoveSubjectFromTeacher">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <div class="form-group">
+                    <label asp-for="Id" class="control-label">Subject Name</label>
+                    <select asp-for="Id" asp-items="subjects" class="form-control"></select>
+                    <span asp-validation-for="Id" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <input type="submit" value="Remove" class="btn btn-danger" />
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <div>
+        @*<a asp-action="Index">Back to List</a>*@
+    </div>
+</body>

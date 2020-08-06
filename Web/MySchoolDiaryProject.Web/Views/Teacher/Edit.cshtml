@@ -1,0 +1,70 @@
+﻿@model MySchoolDiaryProject.Web.ViewModels.Teachers.TeacherInfoViewModel
+
+@{
+    ViewData["Title"] = $"Edit {Model.Name} {Model.MiddleName} {Model.LastName}";
+}
+
+    <body class="pictureBookThemeTeachers">
+        <h1 style="color:ghostwhite;">@ViewData["Title"]</h1>
+
+        <hr />
+
+        <div>
+            <h1>
+                <a class="btn btn-danger btn-lg" asp-action="Delete" asp-controller="Teacher" asp-route-id="@Model.Id">Delete this teacher</a>
+            </h1>
+        </div>
+
+        <div class="row" style="color:ghostwhite;">
+            <div class="col-md-4">
+                <form asp-action="Edit">
+                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                    <div class="form-group">
+                        <label asp-for="Name" class="control-label"></label>
+                        <input asp-for="Name" class="form-control" />
+                        <span asp-validation-for="Name" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="MiddleName" class="control-label">Middle Name</label>
+                        <input asp-for="MiddleName" class="form-control" />
+                        <span asp-validation-for="MiddleName" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="LastName" class="control-label">Last Name</label>
+                        <input asp-for="LastName" class="form-control" />
+                        <span asp-validation-for="LastName" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="BirthDate" class="control-label">Birthday</label>
+                        <input asp-for="BirthDate" type="date" class="form-control" />
+                        <span asp-validation-for="BirthDate" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="Gender" class="control-label"></label>
+                        <select asp-for="Gender" class="form-control">
+                            <option value="female">female</option>
+                            <option value="male">male</option>
+                        </select>
+                        <span asp-validation-for="Gender" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="Phone" class="control-label"></label>
+                        <input asp-for="Phone" class="form-control" />
+                        <span asp-validation-for="Phone" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="Address" class="control-label"></label>
+                        <input asp-for="Address" class="form-control" />
+                        <span asp-validation-for="Address" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <input type="submit" value="Save" class="btn btn-primary" />
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        <div>
+            @*<a asp-action="Index">Back to List</a>*@
+        </div>
+    </body>

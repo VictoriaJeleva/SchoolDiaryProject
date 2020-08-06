@@ -1,0 +1,38 @@
+﻿@using MySchoolDiaryProject.Common
+@model MySchoolDiaryProject.Web.ViewModels.Course.CoursesViewModel
+@{
+    this.ViewData["Title"] = $"Welcome to our Classes!";
+}
+
+    <div class="text-center">
+        <h1 class="display-4">@this.ViewData["Title"]</h1>
+        <table style="width:100%">
+            <tr>
+                <th>CourseName</th>
+                <th>TeacherName</th>
+            </tr>
+
+            <tr>
+                <th>@Model.Name<th>
+                <th>@Model.Teacher</th>
+            </tr>
+            <tr>
+                <th>Students</th>
+            </tr>
+            @foreach (var student in Model.Students)
+            {
+
+                <tr>
+                    <th>Firstname</th>
+                    <th>Lastname</th>
+                    <th>Age</th>
+                </tr>
+                <tr>
+                    <th>@student.Name</th>
+                    <th>@student.MiddleName</th>
+                    <th>@student.LastName</th>
+                </tr>
+
+            }
+        </table>
+    </div>

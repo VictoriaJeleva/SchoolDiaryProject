@@ -1,0 +1,117 @@
+﻿@using MySchoolDiaryProject.Common
+@model MySchoolDiaryProject.Web.ViewModels.Student.StudentInfoGradeViewModel
+@{
+    this.ViewData["Title"] = $"Grades of {Model.Name} {Model.MiddleName} {Model.LastName}";
+    string space = "; ";
+}
+
+<body class="pictureBookThemeParents">
+    <div class="text-center">
+        <h1 class="display-4" style="color:dodgerblue">@this.ViewData["Title"]</h1>
+
+        <table class="table table-bordered table-striped table-hover table-light" style="width:100%; border:solid dodgerblue; border-width:2px;">
+            <thead>
+                <tr>
+                    @foreach (var subject in Model.Subjects)
+                    {
+                        <th>
+                            @subject.Subject.Name
+                        </th>
+                    }
+                </tr>
+            </thead>
+            <tbody>
+                @if (this.Model != null)
+                {
+                    <tr>
+
+                        @foreach (var subject in Model.SubjectsNames)
+                        {
+                            <td>
+
+                                @foreach (var grade in Model.Grades)
+                                {
+                                    @if (grade.SubjectId.ToString().Equals(subject.Id.ToString()))
+                                    {
+                                        @grade.Value;@space
+                                        <span></span>
+                                    }
+                                }
+
+                            </td>
+                        }
+                    </tr>
+
+                }
+            </tbody>
+        </table>
+
+
+
+        @*<table class="table table-bordered table-striped table-hover table-light" style="width:100%;">
+                <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Middle Name</th>
+                        <th>Last Name</th>
+                        <th>Gender</th>
+                        @foreach (var student in @Model.Students)
+                        {
+                            @foreach (var subject in student.Subjects)
+                            {
+                                <th>
+                                    @subject.Subject.Name
+                                </th>
+
+                            }
+                            break;
+                        }
+                    </tr>
+                </thead>
+
+
+                @if (this.Model != null)
+                {
+                    @foreach (var student in Model.Students)
+                    {
+                        <tr>
+                            <td>@student.Name  </td>
+                            <td>@student.MiddleName  </td>
+                            <td>@student.LastName  </td>
+                            <td>@student.Gender  </td>
+                            @foreach (var subject in student.SubjectsNames)
+                            {
+                                <td>
+
+                                    @foreach (var grade in student.Grades)
+                                    {
+                                        <a style="color:Highlight;" asp-action="Edit" asp-controller="Grade" asp-route-id="@grade.Id">
+                                            @if (grade.SubjectId.ToString().Equals(subject.Id.ToString()))
+                                            {
+                                                @grade.Value;@space
+                                                <span></span>
+                                            }
+                                        </a>
+                                    }
+
+                                </td>
+                            }
+                        </tr>
+                        //if (User.IsInRole("Admin"))
+                        //{
+                        <tr>
+                            <td>
+                                <a asp-action="AddGrade" asp-route-id="@student.Id">Add a Grade</a>
+                            </td>
+                        </tr>
+                    }
+                }
+            </table>*@
+    </div>
+</body>
+
+
+
+
+
+

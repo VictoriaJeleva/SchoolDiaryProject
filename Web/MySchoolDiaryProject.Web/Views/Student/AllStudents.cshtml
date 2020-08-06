@@ -1,0 +1,106 @@
+﻿@using MySchoolDiaryProject.Common
+@model MySchoolDiaryProject.Web.ViewModels.Student.ListStudentsViewModel
+@{
+    ViewData["Title"] = "All Students";
+
+    int previousPage = Model.CurrentPage - 1;
+    int nextPage = Model.CurrentPage + 1;
+    bool isPrevoiusPageValid = true;
+    bool isNextPageValid = true;
+
+    if (previousPage <= 0 || previousPage > Model.PagesCount)
+    {
+        isPrevoiusPageValid = false;
+    }
+
+    if (nextPage <= 0 || nextPage > Model.PagesCount)
+    {
+        isNextPageValid = false;
+    }
+}
+
+    <body class="pictureBookThemeTeachers">
+        <h1 style="color:ghostwhite;">@ViewData["Title"]</h1>
+
+        <div>
+            <h1>
+                <a class="btn btn-primary btn-lg" asp-controller="Student" asp-action="CreateStudent">Create a student</a>
+                @*<a asp-action="Delete" asp-controller="Student" asp-route-id="@Model.Id class=" btn btn-primary btn-lg"">Delete</a>*@
+            </h1>
+        </div>
+
+        <table class="table table-bordered table-striped table-hover table-light" style="width:100%;">
+            <thead>
+                <tr>
+                    <th>Course</th>
+                    <th>Name</th>
+                    <th>Middle Name</th>
+                    <th>Last Name</th>
+                    <th>Birthday</th>
+                    <th>Gender</th>
+                    <th>Phone</th>
+                    <th>Address</th>
+                </tr>
+            </thead>
+            @foreach (var student in Model.Students.OrderBy(x => x.Course.Name).ThenBy(x => x.Name).ThenBy(x => x.MiddleName).ThenBy(x => x.LastName))
+            {
+                <tr>
+                    <td>@student.Course.Name</td>
+                    <td>@student.Name</td>
+                    <td>@student.MiddleName</td>
+                    <td>@student.LastName</td>
+                    <td>@student.BirthDate</td>
+                    <td>@student.Gender</td>
+                    <td>@student.Phone</td>
+                    <td>@student.Address</td>
+                </tr>
+                <tr>
+                    <td>
+                        <a asp-action="Edit" asp-route-id="@student.Id">Edit @student.Name's Info</a>
+                    </td>
+                </tr>
+            }
+        </table>
+        <nav aria-label="...">
+            <ul class="pagination">
+
+                @if (isPrevoiusPageValid)
+                {
+                    <li class="page-item">
+                        <a class="page-link" href="https://localhost:44319/Student/AllStudents/AllTeachers/?page=@previousPage">Previous</a>
+                    </li>
+                }
+                else
+                {
+                    <li class="page-item">
+                        <a class="page-link" href="#">Previous</a>
+                    </li>
+                }
+
+                @for (int i = 1; i <= this.Model.PagesCount; i++)
+                {
+                    var active = i == this.Model.CurrentPage ? "active" : string.Empty;
+
+                    <li class="page-item @active">
+                        <a class="page-link"
+                           asp-controller="Student"
+                           asp-action="AllStudents"
+                           asp-route-page="@i">@i</a>
+                    </li>
+                }
+
+                @if (isNextPageValid)
+                {
+                    <li class="page-item">
+                        <a class="page-link" href="https://localhost:44319/Student/AllStudents/?page=@nextPage">Next</a>
+                    </li>
+                }
+                else
+                {
+                    <li class="page-item">
+                        <a class="page-link" href="#">Next</a>
+                    </li>
+                }
+            </ul>
+        </nav>
+    </body>

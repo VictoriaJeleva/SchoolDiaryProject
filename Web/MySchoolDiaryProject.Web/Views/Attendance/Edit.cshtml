@@ -1,0 +1,47 @@
+﻿@model MySchoolDiaryProject.Web.ViewModels.Attendance.AttendaceToEditViewModel
+@{
+    ViewData["Title"] = "Edit";
+    var subjects = @Model.Subjects.Select(x => new SelectListItem(x.Name, x.Id.ToString()));
+    string allDay = "All Day";
+}
+
+<body class="pictureBookThemeTeachers">
+
+    <hr />
+
+    <div>
+        <h1>
+            <a class="btn btn-danger btn-lg" asp-action="Delete" asp-controller="Attendance" asp-route-id="@Model.Id">Delete</a>
+        </h1>
+    </div>
+
+    <div class="row">
+        <div class="col-md-4" style="color:ghostwhite;">
+            <form asp-action="Edit">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <div class="form-group">
+                    <label asp-for="SubjectId" class="control-label">Subjects</label>
+                    <select asp-for="SubjectId" asp-items="subjects" class="form-control"><option>@allDay</option></select>
+                    <span asp-validation-for="SubjectId" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="DateOfAbsense" class="control-label">Date of absense</label>
+                    <input asp-for="DateOfAbsense" class="form-control" />
+                    <span asp-validation-for="DateOfAbsense" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Remark" class="control-label"></label>
+                    <input asp-for="Remark" class="form-control" />
+                    <span asp-validation-for="Remark" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <input type="submit" value="Save" class="btn btn-primary" />
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <div>
+        @*<a asp-action="Index">Back to List</a>*@
+    </div>
+</body>

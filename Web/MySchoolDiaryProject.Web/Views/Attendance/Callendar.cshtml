@@ -1,0 +1,155 @@
+﻿
+@model MySchoolDiaryProject.Web.ViewModels.Attendance.CallendarViewModel
+@{
+    var getDate = DateTime.Now;
+
+
+    var firstDayOfTheMonth = new DateTime(getDate.Year, getDate.Month, 1);
+    DateTime startDate = firstDayOfTheMonth.AddDays(-(int)firstDayOfTheMonth.DayOfWeek);
+    var lastDayOfTheMonth = firstDayOfTheMonth.AddMonths(1).AddDays(-1);
+
+    var numberOfDays = Convert.ToInt16(lastDayOfTheMonth.ToString("dd")) - 1;
+
+    this.ViewData["Title"] = $"Welcome to SchoolDiary!" +
+        $"Here Are Our Classes...";
+}
+
+<h1>Attendances</h1>
+<div id="calender"></div>
+
+<div id="myModal" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title"><span id="eventTitle"></span></h4>
+            </div>
+            <div class="modal-body">
+                <p id="pDetails"></p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<link href="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.4.0/fullcalendar.min.css" rel="stylesheet" />
+<link href="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.4.0/fullcalendar.print.css" rel="stylesheet" media="print"/>
+
+@*@section Scripts
+{
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.18.1/moment.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.4.0/fullcalendar.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.4.0/gcal.min.js"></script>
+
+    <script>
+        $(document).ready(function () {
+
+            var events = [];
+
+            $.ajax({
+                type: "GET",
+                url: "/Attendance/GetAttendances",
+                success: function (data) {
+                    $.each(data, function (i, v) {
+                        events.push({
+                            title: v.Subject,
+                            description: v.Decsription,
+                            start: moment(v.Start),
+                            end: v.End != null ? moment(v.End) : null,
+                            color: v.ThemeColor,
+                            allDay: v.IsFullDay
+                        });
+                    })
+
+                    GenerateCalender(events);
+                },
+                error: function (error) {
+                    alert('failed');
+                }
+            })
+
+            function GenerateCalender(events) {
+                $('#calender').fullCalendar('destroy');
+                $('#calender').fullCalendar({
+                    contentHeight: 400,
+                    defaultDate: new Date(),
+                    timeFormat: 'h(:mm)a',
+                    header: {
+                        left: 'prev,next today',
+                        center: 'title',
+                        right: 'month,basicWeek,basicDat,agenda'
+                    },
+                    eventLimit: true,
+                    eventColor: '#378006',
+                    events: events,
+                    eventClick: function (calEvent, jsEvent, view) {
+                        $('#myModel #eventTitle').text(calEvent.title);
+                        var $description = $('<div/>')
+                        $description.append($('<p/>').html('<b>Start:</b>' + calEvent.start.format("DD-MMM-YYYY HH:mm a")));
+                        if (calEvent.end != null) {
+                            $description.append($('<p/>').html('<b>End:</b>' + calEvent.end.format("DD-MMM-YYYY HH:mm a")));
+                        }
+                        $description.append($('<p/>').html('<b>Description:</b>' + calEvent.description));
+
+                    }
+                })
+            }
+        })
+    </script>
+}*@
+
+@*<table border="1">
+    <thead>
+        <tr>
+            <th>Sunday</th>
+            <th>Monday</th>
+            <th>Tuesday</th>
+            <th>Wednesday</th>
+            <th>Thursday</th>
+            <th>Friday</th>
+            <th>Saturday</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            @for (var i = 0; i < numberOfDays; i++)
+            {
+                if (i % 7 == 0 && i > 0)
+                {
+                @:</tr><tr>
+                    // start a new row every 7 days
+                }
+
+
+            }
+        </tr>
+    </tbody>*@
+
+@*<table>
+        <thead>
+            .... // add day name headings
+            <tr>Monday</tr>
+            <tr>Tuesday</tr>
+            <tr>Wednesday</tr>
+            <tr>Thursay</tr>
+            <tr>Friday</tr>
+            <tr>Saturday</tr>
+            <tr>Sunday</tr>
+        </thead>
+        <tbody>
+            <tr>
+                @for (int i = 0; i < 42; i++)
+                {
+                    DateTime date = startDate.AddDays(i);
+                    if (i % 7 == 0 && i > 0)
+                    {
+                    @:</tr><tr>
+                        // start a new row every 7 days
+                    }
+                    <td>@date.Day</td>
+                }
+            </tr>
+        </tbody>
+    </table>*@

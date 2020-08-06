@@ -1,0 +1,57 @@
+﻿@using MySchoolDiaryProject.Common
+@model MySchoolDiaryProject.Web.ViewModels.Home.IndexParentViewModel
+@{
+    this.ViewData["Title"] = $"Welcome to SchoolDiary!";
+}
+
+@*<head>
+        <link rel="stylesheet" href="~/css/site.css" />
+    </head>*@
+
+<body class="pictureBookThemeParents">
+
+    <div class="text-center">
+        @*<h1 class="display-3 font-weight-light" style="color:aliceblue">@this.ViewData["Title"]</h1>*@
+        <h1 class="display-3 font-weight-light" style="color:dodgerblue">@this.ViewData["Title"]</h1>
+    </div>
+
+    <hr />
+
+    @*<div class="row text-center">*@
+    <div>
+        @*<div class="card" style="width: 18rem; margin: 0 auto; ">*@
+        <div class="boxIndexParent">
+            @*<div class="card-body" style="margin-bottom: 5px; opacity: 0.9;">*@
+            <div class="card-body" style="margin-bottom: 5px; opacity: 0.9;">
+                <a href="https://localhost:44319/Student/Info/@Model.StudentId" style="color:ghostwhite;">
+                    <h5 class="card-title text-center">Student's Info and Attendance</h5>
+                </a>
+            </div>
+        </div>
+        <br />
+        <div class="boxIndexParent">
+            <div class="card-body" style="margin-bottom: 5px; opacity: 0.9;">
+                <a href="https://localhost:44319/Student/OneStudentGrade/@Model.StudentId" style="color:ghostwhite;">
+                    <h5 class="card-title text-center">Student's Grades</h5>
+                </a>
+            </div>
+        </div>
+        <br />
+        <div class="boxIndexParent">
+            <div class="card-body" style="margin-bottom: 5px; opacity: 0.9;">
+                @*<a href="https://localhost:44319/Teacher/TeachersForCourse/@Model.CourseId" style="color:ghostwhite;">
+                        <h5 class="card-title text-center">Teachers' Info</h5>
+                        <h4 class="card-body">@name.Description</h4>
+                    </a>*@
+                <a style="color:ghostwhite;" asp-controller="Teacher" asp-action="TeachersForCourse" asp-route-id="@Model.Student.CourseId">
+                    <h5 class="card-title text-center">Teachers' Info</h5>
+                </a>
+            </div>
+        </div>
+    </div>
+</body>
+
+
+
+
+

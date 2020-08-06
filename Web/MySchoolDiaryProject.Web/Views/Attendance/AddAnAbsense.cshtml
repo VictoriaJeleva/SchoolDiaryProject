@@ -1,0 +1,48 @@
+﻿@model MySchoolDiaryProject.Web.ViewModels.Attendance.AttendanceInputViewModel
+
+@{
+    ViewData["Title"] = "Add An Absense";
+    string allDay = "All Day";
+    var subjects = @Model.Subjects.Select(x => new SelectListItem(x.Name, x.Id.ToString()));
+}
+
+    <body class="pictureBookThemeTeachers">
+
+        <h1 style="color:ghostwhite;">@this.ViewData["Title"]</h1>
+
+
+        <hr />
+        <div class="row">
+            <div class="col-md-4" style="color:ghostwhite;">
+                <form asp-action="AddAnAbsense">
+                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                    <div class="form-group">
+                        <label asp-for="SubjectId">Subject Name</label>
+                        <select asp-for="SubjectId" asp-items="subjects" class="form-control"><option>@allDay</option></select>
+                        <span asp-validation-for="SubjectId" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="DateOfAbsense" class="control-label"></label>
+                        <input asp-for="DateOfAbsense" class="form-control" />
+                        <span asp-validation-for="DateOfAbsense" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="Remark" class="control-label"></label>
+                        <input asp-for="Remark" class="form-control" />
+                        <span asp-validation-for="Remark" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <input type="submit" value="Create" class="btn btn-primary" />
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        @*<div>
+            <a asp-action="Index">Back to List</a>
+        </div>*@
+    </body>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

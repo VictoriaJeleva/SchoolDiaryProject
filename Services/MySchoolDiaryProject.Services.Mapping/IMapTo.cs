@@ -1,0 +1,7 @@
+﻿namespace MySchoolDiaryProject.Services.Mapping
+{
+    // ReSharper disable once UnusedTypeParameter
+    public interface IMapTo<T>
+    {
+    }
+}

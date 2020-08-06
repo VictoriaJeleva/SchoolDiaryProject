@@ -1,0 +1,102 @@
+﻿@using MySchoolDiaryProject.Common
+@model MySchoolDiaryProject.Web.ViewModels.Course.CoursesViewModel
+@{
+    this.ViewData["Title"] = $"Information About {Model.Name}";
+}
+
+<head>
+    @*<link rel="stylesheet" href="~/css/site.css" />*@
+    <link rel="stylesheet" href="https://stackpath.bootstrap.com/bootstrap/4.3.1/css/bootstrap.min.css" />
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+    <script src="https://stackpath.bootstrap.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3.umd/popper.min.js"></script>
+</head>
+
+<body class="pictureBookThemeTeachers">
+    <div class="text-center">
+        <h1 class="display-4" style="color:ghostwhite;">@this.ViewData["Title"]</h1>
+        <div>
+
+        </div>
+
+        <div>
+            @*<a class="nav-link text-dark" asp-area="" asp-controller="Student" asp-action="StudentInfoGrades">Grades</a>*@
+            @*<a asp-action="StudentInfoGrades" asp-controller="Student" asp-route-id="@Model.Id class=" btn btn-primary btn-lg"">See student's Grades</a>*@
+            @*<a asp-action="StudentInfoGrades" asp-controller="Student" asp-route-id="@Model.Id"></a>*@
+            <a style="color:ghostwhite;" href="https://localhost:44319/Student/StudentInfoGrades/@Model.Id">See student's Grades</a>
+        </div>
+
+        @if (User.IsInRole("Administrator"))
+        {
+            <div>
+                <h1>
+                    <a href="https://localhost:44319/Course/Edit/@Model.Id" class="btn btn-primary btn-lg">Edit</a>
+                    <a asp-action="Delete" asp-controller="Course" asp-route-id="@Model.Id" class=" btn btn-primary btn-lg">Delete</a>
+                    <a asp-action="AddSubject" asp-controller="Course" asp-route-id="@Model.Id" class=" btn btn-primary btn-lg">Add a subject</a>
+                    <a asp-action="CreateStudent" asp-controller="Student" asp-route-id="@Model.Name" class="btn btn-primary btn-lg">Register a student</a>
+                    @*<a asp-action="Callendar" asp-controller="Attendance" asp-route-id="@Model.Id" class=" btn btn-primary btn-lg">Attendances</a>*@
+                </h1>
+            </div>
+        }
+
+        <table class="table table-bordered table-striped table-hover table-light">
+            <thead>
+                <tr class="danger">
+                    <th>Class Teacher</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>@Model.Teacher</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <table class="table table-bordered table-striped table-hover table-light">
+            <thead>
+                <tr class="danger">
+                    <th>Students In @Model.Name</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var student in Model.Students.OrderBy(x => x.Name).ThenBy(x => x.MiddleName).ThenBy(x => x.LastName))
+                {
+                    <tr>
+                        <td><a class="text-primary;" asp-action="Info" asp-controller="Student" asp-route-id="@student.Id">@student.Name @student.MiddleName @student.LastName</a></td>
+                    </tr>
+                    @if (User.IsInRole("Administrator"))
+                    {
+                        <tr>
+                            <td>
+                                <a class="text-danger" asp-action="Delete" asp-controller="Student" asp-route-id="@student.Id">Delete student</a>
+                            </td>
+                        </tr>
+                    }
+                }
+            </tbody>
+        </table>
+        <table class="table table-bordered table-striped table-hover table-light">
+            <thead>
+                <tr class="danger">
+                    <th>Subjects In @Model.Name</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var subjectTeacher in Model.CourseSubjectTeachers.OrderBy(x => x.Subject.Name))
+                {
+                    <tr>
+                        <td>@subjectTeacher.Subject.Name - @subjectTeacher.Teacher.Name @subjectTeacher.Teacher.MiddleName @subjectTeacher.Teacher.LastName</td>
+                    </tr>
+                    @if (User.IsInRole("Administrator"))
+                    {
+                        <tr>
+                            <td>
+                                <a class="text-danger" asp-action="DeleteFromCourse" asp-controller="Subject" asp-route-id="@subjectTeacher.SubjectId-@Model.Id" asp-route-subjectId="@subjectTeacher.SubjectId">Delete subject</a>
+                            </td>
+                        </tr>
+                    }
+                }
+            </tbody>
+        </table>
+    </div>
+</body>

@@ -1,0 +1,37 @@
+﻿@model MySchoolDiaryProject.Web.ViewModels.Grade.GradeViewModel
+
+@{
+    ViewData["Title"] = "Edit a grade";
+}
+
+<body class="pictureBookThemeTeachers">
+    <h1 style="color:ghostwhite;">@ViewData["Title"]</h1>
+
+    <div>
+        <h1>
+            <a class="btn btn-danger btn-lg" asp-action="Delete" asp-controller="Grade" asp-route-id="@Model.Id">Delete this grade</a>
+        </h1>
+    </div>
+
+    <hr />
+    <div class="row">
+        <div class="col-md-4">
+            <form asp-action="Edit">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <div class="form-group">
+                    <label asp-for="Value" class="control-label" style="color:ghostwhite;">Grade</label>
+                    <input asp-for="Value" class="form-control" />
+                    <span asp-validation-for="Value" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <input type="submit" value="Save" class="btn btn-primary" />
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <div>
+        @*<a asp-action="Index">Back to List</a>*@
+    </div>
+</body>
+
